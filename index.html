@@ -1,439 +1,541 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이요셉 | Digital Profile</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-base: #0a0b10;
-            --bg-surface: rgba(16, 18, 27, 0.85);
-            --khaki: #6B6B47;
-            --khaki-light: #949466;
-            --khaki-glow: rgba(107, 107, 71, 0.4);
-            --text-primary: #f0f0f0;
-            --text-secondary: #a0a4b8;
-            --border-color: rgba(107, 107, 71, 0.2);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이요셉 | Digital Profile</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+<style>
 
-        /* Background & Digital Textures */
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(var(--border-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -2;
-            opacity: 0.5;
-        }
+:root{
+    --bg:#090d14;
+    --bg2:#101725;
+    --card:rgba(18,26,38,.75);
+    --khaki:#6B6B47;
+    --khaki2:#8b8b5a;
+    --text:#edf2ff;
+    --sub:#9da7bb;
+}
 
-        #network-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1;
-            opacity: 0.6;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        /* Radial Reveal Intro */
-        .reveal-wrapper {
-            clip-path: circle(0% at 50% 50%);
-            animation: radialReveal 1.5s cubic-bezier(0.25, 1, 0.4, 1) forwards;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 50px 20px;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        @keyframes radialReveal {
-            0% { clip-path: circle(0% at 50% 50%); opacity: 0; }
-            100% { clip-path: circle(150% at 50% 50%); opacity: 1; }
-        }
+body{
+    font-family:'Inter','Noto Sans KR',sans-serif;
+    background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+    radial-gradient(circle at top,#182235,#090d14 70%);
+    background-size:40px 40px,40px 40px,100% 100%;
+    color:var(--text);
+    overflow-x:hidden;
+}
 
-        /* Main Container */
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 50px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            backdrop-filter: blur(12px);
-            position: relative;
-        }
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%,rgba(107,107,71,.18),transparent 28%),
+    radial-gradient(circle at 80% 70%,rgba(107,107,71,.15),transparent 25%);
+    pointer-events:none;
+}
 
-        /* Hover Scale Utility */
-        .hover-scale {
-            display: inline-block;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .hover-scale:hover {
-            transform: scale(1.03);
-            color: var(--khaki-light);
-        }
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(90deg,transparent 24%,rgba(107,107,71,.09) 25%,transparent 26%),
+    linear-gradient(transparent 24%,rgba(107,107,71,.08) 25%,transparent 26%);
+    background-size:120px 120px;
+    opacity:.45;
+    pointer-events:none;
+}
 
-        /* Header Section */
-        .header-section {
-            display: flex;
-            gap: 50px;
-            margin-bottom: 60px;
-            align-items: center;
-        }
+#intro{
+    position:fixed;
+    inset:0;
+    background:#090d14;
+    z-index:9999;
+    clip-path:circle(0% at 50% 50%);
+    animation:reveal 1.8s ease forwards;
+}
 
-        /* Profile Image */
-        .profile-wrapper {
-            flex: 0 0 35%;
-            position: relative;
-            padding: 12px;
-        }
+@keyframes reveal{
+    0%{
+        clip-path:circle(0% at 50% 50%);
+    }
+    100%{
+        clip-path:circle(150% at 50% 50%);
+        opacity:0;
+        visibility:hidden;
+    }
+}
 
-        .profile-img-box {
-            width: 100%;
-            aspect-ratio: 3/4;
-            background: rgba(10, 11, 16, 0.8);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
+.container{
+    width:min(1180px,92%);
+    margin:auto;
+}
 
-        .profile-img-box svg {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-            stroke: var(--khaki);
-        }
+header{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
 
-        .profile-img-box span {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            letter-spacing: 1px;
-        }
+.hero{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:70px;
+    align-items:center;
+}
 
-        /* Circuit Board Corners */
-        .corner {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-color: var(--khaki);
-            border-style: solid;
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
-        .profile-wrapper:hover .corner { width: 40px; height: 40px; }
-        
-        .top-left { top: 0; left: 0; border-width: 2px 0 0 2px; }
-        .top-right { top: 0; right: 0; border-width: 2px 2px 0 0; }
-        .bottom-left { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
-        .bottom-right { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
-        
-        .corner::after {
-            content: '';
-            position: absolute;
-            width: 6px; height: 6px;
-            background: var(--khaki);
-            border-radius: 50%;
-        }
-        .top-left::after { top: -4px; left: 20px; }
-        .top-right::after { top: -4px; right: 20px; }
-        .bottom-left::after { bottom: -4px; left: 20px; }
-        .bottom-right::after { bottom: -4px; right: 20px; }
+.photo{
 
-        /* Profile Info Text */
-        .profile-info {
-            flex: 1;
-        }
+    width:340px;
+    height:430px;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    background:linear-gradient(135deg,#202939,#111824);
+    border:2px solid var(--khaki);
+    box-shadow:0 0 35px rgba(107,107,71,.35);
 
-        .sys-label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
-            color: var(--khaki);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            display: block;
-        }
+}
 
-        h1 {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-            line-height: 1.2;
-        }
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 
-        h1 .en-name {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--khaki);
-            margin-left: 10px;
-        }
+.photo::before,
+.photo::after{
+    content:"";
+    position:absolute;
+    width:42px;
+    height:42px;
+    border:2px solid var(--khaki);
+}
 
-        .title {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
+.photo::before{
+    top:10px;
+    left:10px;
+    border-right:none;
+    border-bottom:none;
+}
 
-        .one-liner {
-            font-size: 1.05rem;
-            color: var(--text-primary);
-            border-left: 3px solid var(--khaki);
-            padding-left: 18px;
-            background: linear-gradient(90deg, rgba(107,107,71,0.1) 0%, transparent 100%);
-            padding-block: 10px;
-        }
+.photo::after{
+    bottom:10px;
+    right:10px;
+    border-left:none;
+    border-top:none;
+}
 
-        /* Content Sections */
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
+.tag{
+    color:var(--khaki2);
+    letter-spacing:3px;
+    font-size:13px;
+    text-transform:uppercase;
+}
 
-        .section-box {
-            background: rgba(255,255,255,0.01);
-            border-top: 1px solid var(--border-color);
-            padding-top: 25px;
-            position: relative;
-        }
+h1{
+    margin-top:18px;
+    font-size:68px;
+    font-weight:900;
+}
 
-        .section-box::before {
-            content: '';
-            position: absolute;
-            top: -1px; left: 0;
-            width: 30px; height: 1px;
-            background: var(--khaki);
-            box-shadow: 0 0 10px var(--khaki);
-        }
+.job{
+    font-size:24px;
+    color:var(--khaki2);
+    margin:10px 0 25px;
+}
 
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            color: var(--khaki);
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
+.desc{
+    color:var(--sub);
+    font-size:18px;
+    line-height:1.9;
+    max-width:700px;
+}
 
-        .data-list {
-            list-style: none;
-        }
+.buttons{
+    margin-top:35px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+}
 
-        .data-item {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
+.btn{
+    text-decoration:none;
+    color:white;
+    border:1px solid var(--khaki);
+    padding:14px 24px;
+    border-radius:999px;
+    transition:.3s;
+    font-weight:600;
+}
 
-        .data-item:hover {
-            transform: translateX(5px);
-        }
+.btn:hover{
+    background:var(--khaki);
+    transform:scale(1.05);
+}
 
-        .data-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
+section{
+    padding:80px 0;
+}
 
-        .data-value {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
+.section-title{
+    font-size:34px;
+    margin-bottom:35px;
+    position:relative;
+    display:inline-block;
+}
 
-        .data-value.highlight {
-            color: var(--khaki-light);
-        }
+.section-title::after{
+    content:"";
+    width:70%;
+    height:3px;
+    background:var(--khaki);
+    position:absolute;
+    bottom:-10px;
+    left:0;
+}
 
-        /* Responsive */
-        @media(max-width: 768px) {
-            .header-section {
-                flex-direction: column;
-                text-align: center;
-                gap: 30px;
-            }
-            .profile-wrapper { width: 60%; margin: 0 auto; }
-            .one-liner { border-left: none; border-top: 3px solid var(--khaki); padding-left: 0; padding-top: 15px; }
-            .details-grid { grid-template-columns: 1fr; }
-            .data-item:hover { transform: translateY(-3px); }
-        }
-    </style>
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid rgba(107,107,71,.3);
+    backdrop-filter:blur(10px);
+    border-radius:18px;
+    padding:28px;
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:var(--khaki);
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+
+.card h3{
+    color:var(--khaki2);
+    margin-bottom:16px;
+}
+
+.info{
+    display:grid;
+    gap:15px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding-bottom:10px;
+    gap:20px;
+}
+
+.item span:first-child{
+    color:#b7c0d6;
+}
+
+.timeline{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.timeline .box{
+    padding:22px;
+    border-left:4px solid var(--khaki);
+    background:rgba(255,255,255,.03);
+}
+
+.timeline h4{
+    color:var(--khaki2);
+    margin-bottom:8px;
+}
+
+footer{
+    text-align:center;
+    color:#9ca5b8;
+    padding:40px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.hover-scale,
+a,
+.section-title,
+h1,
+.job{
+    transition:.3s ease;
+}
+
+.hover-scale:hover,
+a:hover,
+.section-title:hover,
+h1:hover,
+.job:hover{
+    transform:scale(1.05);
+}
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.photo{
+margin:auto;
+width:280px;
+height:360px;
+}
+
+h1{
+font-size:48px;
+}
+
+.buttons{
+justify-content:center;
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <div class="bg-grid"></div>
-    <canvas id="network-canvas"></canvas>
+<div id="intro"></div>
 
-    <div class="reveal-wrapper">
-        <div class="container">
-            
-            <header class="header-section">
-                <div class="profile-wrapper">
-                    <div class="corner top-left"></div>
-                    <div class="corner top-right"></div>
-                    <div class="corner bottom-left"></div>
-                    <div class="corner bottom-right"></div>
-                    <div class="profile-img-box">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <span>IMAGE UPLOAD</span>
-                    </div>
-                </div>
-                
-                <div class="profile-info">
-                    <span class="sys-label">User Profile / ID: YOSEP_L</span>
-                    <h1 class="hover-scale">이요셉 <span class="en-name">Lee Yosep</span></h1>
-                    <div class="title hover-scale">기업 대표 / AI 교육 강사</div>
-                    <p class="one-liner hover-scale">미래 사회를 위한 디지털 혁신과 인공지능 교육을 선도합니다.</p>
-                </div>
-            </header>
+<header>
 
-            <div class="details-grid">
-                
-                <section class="section-box">
-                    <h2 class="hover-scale">PERSONAL_DATA</h2>
-                    <ul class="data-list">
-                        <li class="data-item">
-                            <span class="data-label">DATE OF BIRTH / GENDER</span>
-                            <span class="data-value hover-scale">1995. 4. 27. (남)</span>
-                        </li>
-                        <li class="data-item">
-                            <span class="data-label">LOCATION</span>
-                            <span class="data-value hover-scale">광주광역시</span>
-                        </li>
-                        <li class="data-item">
-                            <span class="data-label">CONTACT</span>
-                            <span class="data-value hover-scale highlight">010.9959.5184</span>
-                        </li>
-                        <li class="data-item">
-                            <span class="data-label">EMAIL</span>
-                            <span class="data-value hover-scale">dnflsk427@gmail.com</span>
-                        </li>
-                    </ul>
-                </section>
+<div class="container">
 
-                <section class="section-box">
-                    <h2 class="hover-scale">EDUCATION_&_CAREER</h2>
-                    <ul class="data-list">
-                        <li class="data-item">
-                            <span class="data-label">EDUCATION</span>
-                            <span class="data-value hover-scale">박사 재학</span>
-                        </li>
-                        <li class="data-item">
-                            <span class="data-label">CURRENT POSITION</span>
-                            <span class="data-value hover-scale highlight">기업 대표</span>
-                        </li>
-                        <li class="data-item">
-                            <span class="data-label">EXPERIENCE 01</span>
-                            <span class="data-value hover-scale">전남도립대학교 채움창업 AI강사</span>
-                        </li>
-                        <li class="data-item">
-                            <span class="data-label">EXPERIENCE 02</span>
-                            <span class="data-value hover-scale">광주서구진로센터 AI교육 강사</span>
-                        </li>
-                    </ul>
-                </section>
-                
-            </div>
-        </div>
-    </div>
+<div class="hero">
 
-    <script>
-        const canvas = document.getElementById('network-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let particles = [];
-        
-        function init() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            particles = [];
-            const particleCount = Math.floor(width * height / 15000);
-            
-            for (let i = 0; i < particleCount; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 1.5 + 0.5
-                });
-            }
-        }
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, width, height);
-            
-            ctx.fillStyle = '#6B6B47';
-            ctx.lineWidth = 0.5;
-            
-            for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                
-                if (p.x < 0 || p.x > width) p.vx *= -1;
-                if (p.y < 0 || p.y > height) p.vy *= -1;
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-                
-                for (let j = i + 1; j < particles.length; j++) {
-                    let p2 = particles[j];
-                    let dx = p.x - p2.x;
-                    let dy = p.y - p2.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(107, 107, 71, ${1 - dist/100})`;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-        
-        window.addEventListener('resize', init);
-        init();
-        animate();
-    </script>
+<div class="photo">
+    <img src="profile.jpg" alt="이요셉">
+</div>
+
+<div>
+
+<div class="tag">DIGITAL PROFILE</div>
+
+<h1>이요셉</h1>
+
+<div class="job">
+기업 대표 · AI 교육 강사
+</div>
+
+<p class="desc">
+생성형 AI와 디지털 기술을 활용한 교육 및 창업 분야에서 활동하고 있습니다.
+기술을 쉽게 전달하고 실제 현장에 적용할 수 있도록 교육하는 것을 목표로 하며,
+AI 교육, 창업 교육, 디지털 역량 강화 분야의 다양한 프로젝트를 수행하고 있습니다.
+</p>
+
+<div class="buttons">
+
+<a class="btn" href="#about">About</a>
+<a class="btn" href="#career">Career</a>
+<a class="btn" href="#contact">Contact</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<section id="about">
+
+<div class="container">
+
+<h2 class="section-title">Profile</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>기본 정보</h3>
+
+<div class="info">
+
+<div class="item">
+<span>이름</span>
+<span>이요셉</span>
+</div>
+
+<div class="item">
+<span>성별</span>
+<span>남</span>
+</div>
+
+<div class="item">
+<span>생년월일</span>
+<span>1995.04.27</span>
+</div>
+
+<div class="item">
+<span>거주지</span>
+<span>광주광역시</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>학력 및 직업</h3>
+
+<div class="info">
+
+<div class="item">
+<span>최종 학력</span>
+<span>박사 재학</span>
+</div>
+
+<div class="item">
+<span>직업</span>
+<span>기업 대표</span>
+</div>
+
+<div class="item">
+<span>전문 분야</span>
+<span>AI · 창업 · 디지털 교육</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="career">
+
+<div class="container">
+
+<h2 class="section-title">Career</h2>
+
+<div class="timeline">
+
+<div class="box">
+<h4>전남도립대학교</h4>
+<p>채움창업 AI 강사</p>
+</div>
+
+<div class="box">
+<h4>광주서구진로체험지원센터</h4>
+<p>AI 교육 강사</p>
+</div>
+
+<div class="box">
+<h4>기업 운영</h4>
+<p>생성형 AI 교육, 창업 컨설팅, 디지털 콘텐츠 기획 및 프로젝트 수행</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<div class="container">
+
+<h2 class="section-title">Contact</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>연락처</h3>
+
+<div class="info">
+
+<div class="item">
+<span>휴대폰</span>
+<span>010-9959-5184</span>
+</div>
+
+<div class="item">
+<span>Email</span>
+<span>dnflsk427@gmail.com</span>
+</div>
+
+<div class="item">
+<span>Location</span>
+<span>Gwangju, Korea</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Keyword</h3>
+
+<p style="line-height:2;color:#bfc7d8;">
+#GenerativeAI<br>
+#ChatGPT<br>
+#AI교육<br>
+#창업교육<br>
+#DigitalTransformation<br>
+#FutureEducation
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Lee Yosep | AI Instructor & CEO
+</footer>
+
+<script>
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+},1800);
+
+});
+
+</script>
+
 </body>
 </html>
